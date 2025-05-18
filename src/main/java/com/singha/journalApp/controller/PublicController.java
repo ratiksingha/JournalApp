@@ -11,6 +11,11 @@ public class PublicController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/healthcheck")
+    public String HealthCheck(){
+        return "Server is up and running";
+    }
+
     //POST
     @PostMapping("/createUser")
     public String createUser(@RequestBody User user){

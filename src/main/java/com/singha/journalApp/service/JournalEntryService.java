@@ -40,16 +40,23 @@ public class JournalEntryService {
     }
 
     //DELETE
-    public void deleteById(ObjectId id ){
-        journalEntryRepository.deleteById(id);
-    }
-
-    public void deleteByUserId(ObjectId id , String userName){
+    @Transactional
+    public boolean deleteByUserId(ObjectId id , String userName){
+        boolean removedData=false;
         User user=userService.findByUserName(userName);
-        user.getJournalEntries().removeIf(
+        removedData= user.getJournalEntries().removeIf(
                 x -> x.getId().equals(id)
         );
-        userService.saveEntry(user);
-        journalEntryRepository.deleteById(id);
+       if(removedData){
+           userService.saveEntry(user);
+           journalEntryRepository.deleteById(id);
+              return true;
+       }
+         else{
+              return false;
+         }
+
     }
+
+
 }
