@@ -29,6 +29,7 @@ import org.springframework.security.web.SecurityFilterChain;
             http
                     .authorizeRequests()
                     .antMatchers("/journal/**","/user/**").authenticated()
+                    .antMatchers("/admin/**").hasRole("ADMIN")
                     .anyRequest()
                     .permitAll()
                     .and()

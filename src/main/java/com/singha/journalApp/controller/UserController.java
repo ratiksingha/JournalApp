@@ -24,29 +24,11 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-
-
-//    @GetMapping("/all")
-//    public ResponseEntity<?> getAllUser(){
-//        List<User> entries=userService.getAll();
-//        if(entries!=null && !entries.isEmpty()){
-//            return new  ResponseEntity<>(entries,HttpStatus.OK);
-//        }
-//        else{
-//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//        }
-//    }
-
-
-
     @GetMapping("/{myId}")
     public ResponseEntity<User> getUserByID(@PathVariable ObjectId myId){
         Optional<User> entryById=userService.findById(myId);
         return entryById.map(user -> new ResponseEntity<>(user, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-
-
-
 
 
     //Delete
